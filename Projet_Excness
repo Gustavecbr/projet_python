@@ -1,0 +1,55 @@
+library(data.table)
+library(anytime)
+
+SplitCalcul <- function(a,b){
+  path=paste("C:/Users/gusta/OneDrive/Bureau/PI2/Data/",a,sep="")
+  data <- read.csv(path,sep=",")
+  data$Timestamp <- anytime(data$Timestamp) #convert column Timestamp to Timestamp class
+  #data$Spread <- as.double(data$Ask - data$Bid) #on ajoute le spread
+  #data$Mid <- (data$Ask + data$Bid)/2 #on ajoute la valeur moyenne
+  tab <- split(data, format(data$Timestamp, "%Y-%m-%d"))
+  print(tab)
+  dates <- names(tab); # Regroupement de l'ensemble des dates dans un tableau
+  for (i in 1 : length(dates)-1){
+    head <- "'Exness' 'Symbol' 'Timestamp' 'Bid' 'Ask'"
+    path <- paste("C:/Users/gusta/OneDrive/Bureau/PI2/DataSplit/", b , dates[i] ,".csv", sep = "")
+    write.table(head, path, sep = "," , col.names = FALSE, append = TRUE, row.names = FALSE)#On ecrit l'entete sur l'excel
+    write.table(tab[i], path,sep=",", col.names = FALSE, append = TRUE, row.names = FALSE)#On ecrit toutes les valeurs sur les nouveaux excel
+  }
+}
+
+#EURGBPm
+
+SplitCalcul("Exness_EURGBPm_2018.csv","_EURGBPm_")#On applique la fonction
+SplitCalcul("Exness_EURGBPm_2019.csv","_EURGBPm_")
+SplitCalcul("Exness_EURGBPm_2020.csv","_EURGBPm_")
+SplitCalcul("Exness_EURGBPm_2021.csv","_EURGBPm_")
+
+#EURJPYm
+SplitCalcul("Exness_EURJPYm_2018.csv","_EURJPYm_")
+SplitCalcul("Exness_EURJPYm_2019.csv","_EURJPYm_")
+SplitCalcul("Exness_EURJPYm_2020.csv","_EURJPYm_")
+SplitCalcul("Exness_EURJPYm_2021.csv","_EURJPYm_")
+
+#EURUSDm
+SplitCalcul("Exness_EurUSDm_2018.csv","_EurUSDm_")
+SplitCalcul("Exness_EurUSDm_2019.csv","_EurUSDm_")
+SplitCalcul("Exness_EurUSDm_2020.csv","_EurUSDm_")
+SplitCalcul("Exness_EurUSDm_2021.csv","_EurUSDm_")
+
+
+#GBPUSDm
+SplitCalcul("Exness_GBPUSDm_2018.csv","_GBPUSDm_")
+SplitCalcul("Exness_GBPUSDm_2019.csv","_GBPUSDm_")
+SplitCalcul("Exness_GBPUSDm_2020.csv","_GBPUSDm_")
+SplitCalcul("Exness_GBPUSDm_2021.csv","_GBPUSDm_")
+
+#USDJPYm
+SplitCalcul("Exness_USDJPYm_2018.csv","_USDJPYm_")
+SplitCalcul("Exness_USDJPYm_2019.csv","_USDJPYm_")
+SplitCalcul("Exness_USDJPYm_2020.csv","_USDJPYm_")
+SplitCalcul("Exness_USDJPYm_2021.csv","_USDJPYm_")
+
+#XAUUSDm
+SplitCalcul("Exness_XAUUSDm_2019.csv","_XAUUSDm_")
+SplitCalcul("Exness_XAUUSDm_2020.csv","_XAUUSDm_")
